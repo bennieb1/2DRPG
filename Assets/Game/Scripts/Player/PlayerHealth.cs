@@ -30,11 +30,28 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         if (stats.Health <= 0 ) return;
         stats.Health -= amount;
-        DmgManager.instance.ShowDamageText(amount,transform);
+        DmgManager.Instance.ShowDamageText(amount,transform);
         if (stats.Health <= 0f)
         {
             PlayerDead();
         }
+    }
+
+    public void RestoreHealth(float amount)
+    {
+
+        stats.Health += amount;
+        if (stats.Health > stats.MaxHealth)
+        {
+            stats.Health = stats.MaxHealth;
+        }
+        
+
+    }
+
+    public bool CanRestoreHealth()
+    {
+        return stats.Health > 0 && stats.Health < stats.MaxHealth;
     }
 
     private void PlayerDead()

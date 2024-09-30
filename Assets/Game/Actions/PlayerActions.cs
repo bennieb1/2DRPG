@@ -94,6 +94,34 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Attack"",
+            ""id"": ""857284bc-3886-42d1-942d-2ffbd6eb61b7"",
+            ""actions"": [
+                {
+                    ""name"": ""ClickAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""85bf07f5-7d36-41dd-9736-68cfea7f26c3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""24184a56-9577-42d4-9673-588dfeb5b2b4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClickAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -101,11 +129,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        // Attack
+        m_Attack = asset.FindActionMap("Attack", throwIfNotFound: true);
+        m_Attack_ClickAttack = m_Attack.FindAction("ClickAttack", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
     {
         UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, PlayerActions.Movement.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Attack.enabled, "This will cause a leak and performance issues, PlayerActions.Attack.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -209,8 +241,58 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Attack
+    private readonly InputActionMap m_Attack;
+    private List<IAttackActions> m_AttackActionsCallbackInterfaces = new List<IAttackActions>();
+    private readonly InputAction m_Attack_ClickAttack;
+    public struct AttackActions
+    {
+        private @PlayerActions m_Wrapper;
+        public AttackActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ClickAttack => m_Wrapper.m_Attack_ClickAttack;
+        public InputActionMap Get() { return m_Wrapper.m_Attack; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AttackActions set) { return set.Get(); }
+        public void AddCallbacks(IAttackActions instance)
+        {
+            if (instance == null || m_Wrapper.m_AttackActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Add(instance);
+            @ClickAttack.started += instance.OnClickAttack;
+            @ClickAttack.performed += instance.OnClickAttack;
+            @ClickAttack.canceled += instance.OnClickAttack;
+        }
+
+        private void UnregisterCallbacks(IAttackActions instance)
+        {
+            @ClickAttack.started -= instance.OnClickAttack;
+            @ClickAttack.performed -= instance.OnClickAttack;
+            @ClickAttack.canceled -= instance.OnClickAttack;
+        }
+
+        public void RemoveCallbacks(IAttackActions instance)
+        {
+            if (m_Wrapper.m_AttackActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IAttackActions instance)
+        {
+            foreach (var item in m_Wrapper.m_AttackActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public AttackActions @Attack => new AttackActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IAttackActions
+    {
+        void OnClickAttack(InputAction.CallbackContext context);
     }
 }

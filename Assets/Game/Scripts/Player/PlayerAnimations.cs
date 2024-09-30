@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    // Start is called before the first frame update
     private readonly int moveX = Animator.StringToHash("MoveX");
     private readonly int moveY = Animator.StringToHash("MoveY");
     private readonly int moving = Animator.StringToHash("Moving");
     private readonly int dead = Animator.StringToHash("Dead");
     private readonly int revive = Animator.StringToHash("Revive");
-
+    private readonly int attacking = Animator.StringToHash("Attacking");
+ 
     private Animator animator;
-
+ 
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,6 +35,11 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetFloat(moveY, dir.y);
     }
 
+    public void SetAttackAnimation(bool value)
+    {
+        animator.SetBool(attacking, value);
+    }
+ 
     public void ResetPlayer()
     {
         SetMoveAnimation(Vector2.down);

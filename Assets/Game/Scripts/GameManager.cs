@@ -1,22 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Extra;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singelton<GameManager>
 {
-    [SerializeField] private Player _player;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    
+ 
+    [SerializeField] private Player player;
+
+    public Player Player => player;
+
+  
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _player.ResetPlayer();
+            player.ResetPlayer();
         }
+    }
 
+    public void AddPlayerExp(float expAmount)
+    {
+        PlayerExp playerExp = player.GetComponent<PlayerExp>();
+        playerExp.AddExp(expAmount);
     }
 }

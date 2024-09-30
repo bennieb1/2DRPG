@@ -1,17 +1,15 @@
 ﻿using System;
+using Game.Scripts.Extra;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public class DmgManager : MonoBehaviour
+    public class DmgManager : Singelton<DmgManager>
     {
-        public static DmgManager instance;
+        
         [SerializeField] private DmgText _dmgTextPrefab;
 
-        private void Awake()
-        {
-            instance = this;
-        }
+ 
 
 
         public void ShowDamageText(float dmgAmount, Transform parent)
