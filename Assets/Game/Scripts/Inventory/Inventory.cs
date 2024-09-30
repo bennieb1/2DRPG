@@ -5,37 +5,137 @@ using UnityEngine;
 
 public class Inventory : Singelton<Inventory>
 {
+[Header("Config")]
+[SerializeField] private int inventorySize;
+[SerializeField] private InventoryItem[] inventoryItems;
 
-    [Header("Config")]
-    [SerializeField] private int InventorySize;
+[Header("Testing")] 
+public InventoryItem testItem;
 
-    [SerializeField] private InventoryItem[] _inventoryItems;
-    public int inventorySize => InventorySize;
+public int InventorySize => inventorySize;
+public InventoryItem[] InventoryItems => inventoryItems;
 
+public void Start()
+{
+    inventoryItems = new InventoryItem[inventorySize];
+    VerifyItemsForDraw();
+}
 
-    public void Start()
+private void Update()
+{
+    if (Input.GetKeyDown(KeyCode.H))
     {
-        _inventoryItems = new InventoryItem[InventorySize];
+        AddItem(testItem, 1);
     }
+}
 
-    private void AddItemFreeSlot(InventoryItem item, int quantity)
+public void AddItem(InventoryItem item, int quantity)
+{
+    if (item == null || quantity <= 0) return;
+    List<int> itemIndexes = CheckItemStock(item.ID);
+    if (item.IsStackable && itemIndexes.Count > 0)
     {
-    }
-
-    private List<int> CheckItemStock(string itemID)
-    {
-        List<int> itemIndex = new List<int>();
-        for (int i = 0; i < _inventoryItems.Length; i++)
+        foreach (int index in itemIndexes)
         {
-
-            if (_inventoryItems[i]==null) continue;
-            if (_inventoryItems[i].ID == itemID)
+            int maxStack = item.MaxStack;
+            if (inventoryItems[index].Quantity < maxStack)
             {
-                itemIndex.Add(i);
+                inventoryItems[index].Quantity += quantity;
+                if (inventoryItems[index].Quantity > maxStack)
+                {
+                    int dif = inventoryItems[index].Quantity - maxStack;
+                    inventoryItems[index].Quantity = maxStack;
+                    AddItem(item, dif);
+                }
+                
+                InventoryUi.Instance.DrawItem(inventoryItems[index], index);
+                return;
             }
-            
         }
-
-        return itemIndex;
     }
+
+    int quantityToAdd = quantity > item.MaxStack ? item.MaxStack : quantity;
+    AddItemFreeSlot(item, quantityToAdd);
+    int remainingAmount = quantity - quantityToAdd;
+    if (remainingAmount > 0)
+    {
+        AddItem(item, remainingAmount);
+    }
+}
+
+public void UseItem(int index)
+{
+    if (inventoryItems[index] == null) return;
+    if (inventoryItems[index].UseItem())
+    {
+        DecreaseItemStack(index);
+    }
+}
+
+public void RemoveItem(int index)
+{
+    if (inventoryItems[index] == null) return;
+    inventoryItems[index].RemoveItem();
+    inventoryItems[index] = null;
+    InventoryUi.Instance.DrawItem(null, index);
+}
+
+public void EquipItem(int index)
+{
+    if (inventoryItems[index] == null) return;
+    if (inventoryItems[index].itemType != ItemType.Weapon) return;
+    inventoryItems[index].EquipItem();
+}
+
+private void AddItemFreeSlot(InventoryItem item, int quantity)
+{
+    for (int i = 0; i < inventorySize; i++)
+    {
+        if (inventoryItems[i] != null) continue;
+        inventoryItems[i] = item.CopyItem();
+        inventoryItems[i].Quantity = quantity;
+        InventoryUi.Instance.DrawItem(inventoryItems[i], i);
+        return;
+    }
+}
+
+private void DecreaseItemStack(int index)
+{
+    inventoryItems[index].Quantity--;
+    if (inventoryItems[index].Quantity <= 0)
+    {
+        inventoryItems[index] = null;
+        InventoryUi.Instance.DrawItem(null, index);
+    }
+    else
+    {
+        InventoryUi.Instance.DrawItem(inventoryItems[index], index);
+    }
+}
+
+private List<int> CheckItemStock(string itemID)
+{
+    List<int> itemIndexes = new List<int>();
+    for (int i = 0; i < inventoryItems.Length; i++)
+    {
+        if (inventoryItems[i] == null) continue;
+        if (inventoryItems[i].ID == itemID)
+        {
+            itemIndexes.Add(i);
+        }
+    }
+
+    return itemIndexes;
+}
+
+private void VerifyItemsForDraw()
+{
+    for (int i = 0; i < inventorySize; i++)
+    {
+        if (inventoryItems[i] == null)
+        {
+            InventoryUi.Instance.DrawItem(null, i);
+        }
+    }
+}
 }

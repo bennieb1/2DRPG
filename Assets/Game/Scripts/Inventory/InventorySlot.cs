@@ -1,28 +1,33 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-   [SerializeField] private Image itemIcon;
-   [SerializeField] private Image quantityImage;
-   [SerializeField] private TextMeshProUGUI itemQuantityTMP;
+    public static event Action<int> OnSlotSelectedEvent;
 
-   public int Index { get; set; }
+    [Header("Config")] [SerializeField] private Image itemIcon;
+    [SerializeField] private Image quantityContainer;
+    [SerializeField] private TextMeshProUGUI itemQuantityTMP;
 
-   public void UpdateSlot(InventoryItem item)
-   {
+    public int Index { get; set; }
 
-      itemIcon.sprite = item.Icon;
-      itemQuantityTMP.text = item.Quantity.ToString();
+    public void ClickSlot()
+    {
+        OnSlotSelectedEvent?.Invoke(Index);
+    }
 
-   }
+    public void UpdateSlot(InventoryItem item)
+    {
+        itemIcon.sprite = item.Icon;
+        itemQuantityTMP.text = item.Quantity.ToString();
+        itemIcon.SetNativeSize();
+    }
 
-   public void ShowSlotInfo(bool value)
-   {
-      
-      itemIcon.gameObject.SetActive(value);
-      quantityImage.gameObject.SetActive(value);
-      
-   }
+    public void ShowSlotInformation(bool value)
+    {
+        itemIcon.gameObject.SetActive(value);
+        quantityContainer.gameObject.SetActive(value);
+    }
 }
