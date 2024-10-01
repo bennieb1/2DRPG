@@ -22,7 +22,7 @@ public class InventoryUi : Singelton<InventoryUi>
     
     private List<InventorySlot> slotList = new List<InventorySlot>();
 
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
         InitInventory();
