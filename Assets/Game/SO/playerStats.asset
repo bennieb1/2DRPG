@@ -26,7 +26,7 @@ MonoBehaviour:
   CriticalDamage: 50
   Strength: 0
   Dexterity: 0
-  Intelligence: 35
+  Intelligence: 0
   AttributePoints: 0
   TotalExp: 0
-  TotalDamage: 4
+  TotalDamage: 6

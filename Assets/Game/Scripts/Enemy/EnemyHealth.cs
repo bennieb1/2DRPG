@@ -12,12 +12,14 @@ namespace Game.Scripts.Enemy
         public float CurrentHealth { get; private set; }
 
         private Animator animator;
+        private Rigidbody2D rd2d;
         private EnemyBrain enemyBrain;
         private EnemyLoot enemyLoot;
         private EnemySelector enemySelector;
 
         private void Awake()
         {
+            rd2d = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             enemyLoot = GetComponent<EnemyLoot>();
             enemyBrain = GetComponent<EnemyBrain>();
@@ -47,7 +49,7 @@ namespace Game.Scripts.Enemy
             animator.SetTrigger("Dead");
             enemyBrain.enabled = false;
             enemySelector.NoSelectionCallback();
-            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            rd2d.bodyType = RigidbodyType2D.Static;
             OnEnemyDeadEvent?.Invoke();
             GameManager.Instance.AddPlayerExp(enemyLoot.ExpDrop);
         }

@@ -39,7 +39,7 @@ namespace Game.Scripts.Player
 
         private void Start()
         {
-            EquipWeapon(initialWeapon);
+            WeaponManager.Instance.EquipWeapon(initialWeapon);
             actions.Attack.ClickAttack.performed += ctx => Attack();
         }
 

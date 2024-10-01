@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 248007669265403693}
   - component: {fileID: 2741239941352894738}
   - component: {fileID: 8434569749499782076}
+  - component: {fileID: 1320530162652793864}
+  - component: {fileID: 5702061152228181720}
   m_Layer: 6
   m_Name: Enemy_6
   m_TagString: Enemy
@@ -394,4 +396,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d34e1a19fdd4fe2986e84cf761d6d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectorSprite: {fileID: 7194399483873693677}
+  selectorSprite: {fileID: 7194399483873693677}
+--- !u!114 &1320530162652793864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395767329147475010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a52c3e8e80194a1f9d5c76a287b035d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+--- !u!114 &5702061152228181720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395767329147475010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bf48a5e0efc3a498ca75ea09c8a960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expDrop: 65
+  _dropItems:
+  - Name: HealthPotion 10x 100%
+    Item: {fileID: 11400000, guid: dd57bda892eb0a3458c0ecd4a350e6e9, type: 2}
+    Quantity: 10
+    DropChance: 100
+  - Name: ManaPot 5x 30%
+    Item: {fileID: 11400000, guid: c4a5cb538f49553449ead67ebf9a3bcf, type: 2}
+    Quantity: 5
+    DropChance: 30
+  - Name: GoldKey 1 10%
+    Item: {fileID: 11400000, guid: 38638b9c8a4735047a20f1a8ac74a73a, type: 2}
+    Quantity: 1
+    DropChance: 10
+  - Name: LittleChest 1 10%
+    Item: {fileID: 11400000, guid: 1cb24effce64f8b40b86efc441706d55, type: 2}
+    Quantity: 1
+    DropChance: 10
+  - Name: Sushi 10 60%
+    Item: {fileID: 11400000, guid: 80e48785287ff774785248977ac996c9, type: 2}
+    Quantity: 10
+    DropChance: 60

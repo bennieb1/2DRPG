@@ -15,11 +15,11 @@ MonoBehaviour:
   ID: WeaponSwordBone
   Name: swordBone
   Icon: {fileID: 21300000, guid: a6a3a8d76f318f347820e544612b067c, type: 3}
-  Description: 'a Medium sword made of bone... its strength or dexterity maybe in
-    question '
+  Description: a Medium sword made of bone... its strength or dexterity maybe in
+    question, may also be broken down and used for materials
   itemType: 0
   IsConsumable: 0
-  IsStackable: 0
-  MaxStack: 1
+  IsStackable: 1
+  MaxStack: 2147483647
   Quantity: 0
   weapon: {fileID: 11400000, guid: a2f32ff8934623a439ad8dc724367001, type: 2}
