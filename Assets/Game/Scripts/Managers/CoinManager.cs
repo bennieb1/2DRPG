@@ -15,6 +15,7 @@ namespace Game.Scripts
         private void Start()
         {
             coins = SaveGame.Load(COIN_KEY, coinTest);
+            SaveGame.Delete(COIN_KEY);
         }
 
 
