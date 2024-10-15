@@ -1,18 +1,70 @@
 ----------------------------------------------------------------
 Super Retro Collection
-©2023/2024 Gif (Twitter @gif_not_jif)
+©2024/2025 Gif (Twitter @gif_not_jif)
 
 Versions history :
 
-___Version 2.7.3 small pre-v3.0.0 update (Happy new year !)
+___Version 3.1.0 (October 2024) Fixing the package + Prefab with behavior samples
+    > Fixing the package : updates work properly for everyone now. My bad !
+    > I'm adding more and more prefabs, so now I also provided samples of more advanced ones
+        > Chest opening on contact
+        > Tallgrass waving on contact
+        > Block pushed on contact
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior
+        > Sample scene for the demo
+            > location : Gif/Super_Retro_Collection/Samples/behaviors_sample.unity
 
+___Version 3.0.3 (October 2024) User-request update !
+    > user bbennie9842 : more prefabs with colliders and pivot point
+        > 10 columns prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Columns
+        > 3 statues prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Statues
+        > 46 rock prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Rocks
+
+___Version 3.0.2 (October 2024) User-request update !
+    > user Anika : add the color palette to the package
+        > color palette
+            > location : Gif/Super_Retro_Collection/Resources/color_palette.png
+    > user bbennie9842 : more prefabs with colliders and pivot point
+        > 16 lamps prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Lamps
+        > 6 Torii prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Torii
+        > 15 potted plants prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Potted plants
+        > 7 books prefabs
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Books
+
+___Version 3.0.1 (October 2024) User-request update !
+    > (bbennie9842) : update 1/7 (more to come)
+        > 26 houses prefabs added (with colliders and pivot point)
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Houses
+        > 27 pots prefabs added (with colliders and pivot point)
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Pots
+    > fixes :
+        > prefab torches pivot point is now correct
+            > location : Gif/Super_Retro_Collection/Resources/Prefabs/Torches
+        
+___Version 3.0.0 (October 2024) Hero update !
+    > New content : Hero character with massive animations !
+        > Hero character animations sheet :
+            > Attack, Shoot, Block
+            > Idle, Walk, Run, Breath
+            > Death, Hit, Spin
+            > Lift, Carry, Throw
+            > 5 color swaps
+        > Bonus animations : dummy character
+        > location : Gif/Super_Retro_Collection/Resources/Hero
+
+___Version 2.7.3 small pre-v3.0.0 update (Happy new year !)
     > Prefabs : in preparation of the v3.0, I'm testing prefabs addition (2/10)
         > +28 trees : with collisions and pivot
         > (work in progress) sample scene : Gif/Super_Retro_Collection/Samples/prefabs_sample.unity
         > location : Gif/Super_Retro_Collection/Resources/Prefabs/Trees
 
 ___Version 2.7.2 small pre-v3.0.0 update
-
     > New sprites : animals (finally !) (1/2)
         > cat, mouse, bunny, fox and bird with color variations
         > location : Gif/Super_Retro_Collection/Resources/Characters/Animals
@@ -46,6 +98,7 @@ ___Version 2.6.0 User requests update :
 		> Fixes :
 			> In the samples scenes, the camera didn't render the tiles properly
 
+
 ___Version 2.5.0 User requests update :
         User requests :
             > (RpgItch) Adding more tiles to the "Farming sim" section of the SuperRetro_TilePalette (to match the itchio version) !
@@ -59,7 +112,6 @@ ___Version 2.4.0 (January 2023) Overworld autotiles & collider update :
         User requests :
             > (Lootsplosion Studios) the autotile palette now have colliders !
         I have also remade the samples maps with collisions enabled.
-
 ___Version 2.3.0 (December 2022) Farming & User requests update :
         Resources/Animations folder is getting too big, so I'm rearranging it into dedicated subfolders (more to come) :
             > Chest, Cristal, Door, Farm, Fire, Kart, Lamp, Lava, Switch, Trap, Water
@@ -125,14 +177,13 @@ _________Characters/..........................Characters and monsters (walk anim
 ____________Monsters/.........................Monsters sheets
 ____________Characters/.......................Characters sheets
 ____________Animals/..........................Animals sheets
-
 _________Environments/........................Tiles and autotiles to build maps (11 atlas ready to be added on a TilePalette)
 ____________TilePalette/......................Prebuild TilePalettes (samples)
 _______________Autotiles/.....................Autotiles (using Fang package to generate them)
 _______________Tiles/.........................Every tiles availables
-
+_________Hero/................................Hero / Player animations !
+_________Prefabs/.............................All of the assets built into convenient prefabs (dedicated subfolders)
 ______Samples/................................sample playable scenes, where you can move around a bunch of assets. Check "Notice" section for more infos.
-
 ______Scripts/................................Scripts used in the playable map
 _________CharacterAppearance..................C# script to animate and change the skin of the 2D Sprite character it is attached to
 _________PlayerMovement.......................Move the player character around with the arrow keys
@@ -145,6 +196,7 @@ Features
  - Tiles count : over 10000 ! (16x16) 
  - Animated characters, monsters, chests, doors, and much more !
  - Autotiles and animated autotiles (roads, water, lava, walls, ...)
+ - Prefabs (a lot of them !)
 
 
 ----------------------------------------------------------------

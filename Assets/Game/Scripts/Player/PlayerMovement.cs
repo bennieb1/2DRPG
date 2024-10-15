@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PixelCrushers;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
 
     public Vector2 MoveDirection => moveDirection;
     
@@ -62,4 +63,6 @@ public class PlayerMovement : MonoBehaviour
     {
         actions.Disable();
     }
+    
+    
 }

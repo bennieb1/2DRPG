@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using BayatGames.SaveGameFree;
+using Game.Scripts.Extra;
 using Game.Scripts.Player;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singelton<Player>
 {  [Header("Config")]
     [SerializeField] private PlayerStats stats;
 
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
         animations = GetComponent<PlayerAnimations>();
         playerHealth = GetComponent<PlayerHealth>();
         mana = GetComponent<PlayerMana>();

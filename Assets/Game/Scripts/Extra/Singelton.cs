@@ -9,7 +9,16 @@ namespace Game.Scripts.Extra
 
         protected virtual void Awake()
         {
-            Instance = this as T;
+            if (Instance == null)
+            {
+                Instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
 }

@@ -37,7 +37,7 @@ public class Inventory : Singelton<Inventory>
     public void AddItem(InventoryItem item, int quantity)
     {
         if (item == null || quantity <= 0) return;
-        List<int> itemIndexes = CheckItemStock(item.ID);
+        List<int> itemIndexes = CheckItemStockIdexes(item.ID);
         if (item.IsStackable && itemIndexes.Count > 0)
         {
             foreach (int index in itemIndexes)
@@ -127,7 +127,18 @@ public class Inventory : Singelton<Inventory>
         }
     }
 
-    private List<int> CheckItemStock(string itemID)
+    public void ConsumeItem(string itemID)
+    {
+
+        List<int> indexes = CheckItemStockIdexes(itemID);
+        if (indexes.Count > 0)
+        {
+            DecreaseItemStack(indexes[^1]);
+        }
+
+    }
+
+    private List<int> CheckItemStockIdexes(string itemID)
     {
         List<int> itemIndexes = new List<int>();
         for (int i = 0; i < inventoryItems.Length; i++)
@@ -140,6 +151,25 @@ public class Inventory : Singelton<Inventory>
         }
 
         return itemIndexes;
+    }
+
+    public int GetItemCurrentStock(string itemID)
+    {
+        List<int> indexes = CheckItemStockIdexes(itemID);
+        int currentStock = 0;
+        foreach (var index in indexes)
+        {
+
+            if (inventoryItems[index].ID==itemID)
+            {
+
+                currentStock += inventoryItems[index].Quantity;
+
+            }
+            
+        }
+
+        return currentStock;
     }
 
     private void VerifyItemsForDraw()
@@ -155,7 +185,7 @@ public class Inventory : Singelton<Inventory>
 
     private InventoryItem ItemExistInGameContent(string ItemId)
     {
-        for (int i = 0; i < inventorySize; i++)
+        for (int i = 0; i < _gameContent.GameItems.Length; i++)
         {
             if (_gameContent.GameItems[i].ID == ItemId)
             {
